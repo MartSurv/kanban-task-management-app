@@ -27,7 +27,9 @@ export default function RootLayout({
             </div>
             <div className="flex w-full flex-col">
               <Header />
-              {children}
+              <main className="h-full bg-light-grey dark:bg-very-dark-grey">
+                {children}
+              </main>
             </div>
           </div>
         </AppContextProvider>

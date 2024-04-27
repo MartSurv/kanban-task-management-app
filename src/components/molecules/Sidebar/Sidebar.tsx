@@ -5,10 +5,12 @@ import IconDarkTheme from "assets/images/icon-dark-theme.svg";
 import data from "../../../../data/data.json";
 import { Switch } from "components/atoms/Switch";
 import { Logo } from "components/atoms/Logo";
+import { headers } from "next/headers";
 
 export const Sidebar: React.FC = () => {
+  console.log(headers());
   return (
-    <aside className="flex w-72 flex-col gap-16 border-r py-8 pr-6 dark:border-lines-dark dark:bg-dark-grey">
+    <aside className="flex w-72 flex-col gap-16 border-r bg-white py-8 pr-6 dark:border-lines-dark dark:bg-dark-grey">
       <Logo />
       <div className="flex w-full flex-col gap-5">
         <span className="ml-8 text-xs font-bold tracking-[.2em] text-medium-grey">
@@ -17,7 +19,11 @@ export const Sidebar: React.FC = () => {
         <nav className="*:pl-8">
           {data.boards.map((board) => {
             return (
-              <NavLink className="group" key={board.name} href="">
+              <NavLink
+                className="group"
+                key={board.name}
+                href={board.name.split(" ").join("-").toLocaleLowerCase()}
+              >
                 <IconBoard className="fill-medium-grey group-hover:fill-main-purple" />
                 {board.name}
               </NavLink>

@@ -23,7 +23,9 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [theme, setTheme] = useState<Theme>(
-    (localStorage.getItem("theme") as Theme) ?? Theme.Light,
+    typeof window !== "undefined"
+      ? (localStorage.getItem("theme") as Theme)
+      : Theme.Light,
   );
 
   const value = useMemo(
