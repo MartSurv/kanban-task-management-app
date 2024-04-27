@@ -14,24 +14,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={inter.className}>
         <AppContextProvider>
-          <div className="flex">
+          <div className="fade-in flex">
             <div className="flex min-h-screen">
               <Sidebar />
             </div>
             <div className="flex w-full flex-col">
               <Header />
-              <main className="h-full bg-light-grey dark:bg-very-dark-grey">
+              <main className="fade-in h-full bg-light-grey p-6 dark:bg-very-dark-grey">
                 {children}
               </main>
             </div>
           </div>
+          {modal}
         </AppContextProvider>
       </body>
     </html>

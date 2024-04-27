@@ -5,6 +5,9 @@ const config: Config = {
   darkMode: "selector",
   theme: {
     extend: {
+      animation: {
+        "fade-in": "fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
+      },
       colors: {
         "custom-black": "#000112",
         "custom-red": "#EA5555",
@@ -17,6 +20,12 @@ const config: Config = {
         "main-purple-hover": "#A8A4FF",
         "medium-grey": "#828FA3",
         "very-dark-grey": "#20212C",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
     },
   },

@@ -8,8 +8,8 @@ export const Logo: React.FC = () => {
   const { theme } = useAppContext();
 
   return theme === Theme.Light ? (
-    <LogoDark className="ml-8" />
+    <LogoDark className="ml-8 h-[1.8rem]" />
   ) : (
-    <LogoLight className="ml-8" />
+    <LogoLight className="ml-8 h-[1.8rem]" />
   );
 };
