@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "components/molecules/Sidebar";
 import { Header } from "components/molecules/Header";
+import { AppContextProvider } from "contexts/AppContext";
 
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
 
@@ -19,15 +20,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex">
-          <div className="flex min-h-screen">
-            <Sidebar />
+        <AppContextProvider>
+          <div className="flex">
+            <div className="flex min-h-screen">
+              <Sidebar />
+            </div>
+            <div className="flex w-full flex-col">
+              <Header />
+              {children}
+            </div>
           </div>
-          <div className="flex w-full flex-col">
-            <Header />
-            {children}
-          </div>
-        </div>
+        </AppContextProvider>
       </body>
     </html>
   );
