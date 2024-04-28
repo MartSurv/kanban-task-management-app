@@ -33,8 +33,8 @@ export default function RootLayout({
                 {children}
               </main>
             </div>
+            {modal}
           </div>
-          {modal}
         </AppContextProvider>
       </body>
     </html>

@@ -34,10 +34,10 @@ export const Sidebar: React.FC = () => {
             <Subtitle className="ml-8" text={`all boards (${boardsCount})`} />
             <nav className="*:pl-8">
               {data.boards.map((board) => {
-                const href = `/${board.name.split(" ").join("-").toLocaleLowerCase()}`;
+                const href = `/boards/${board.id}`;
                 return (
                   <NavLink
-                    active={pathname === href}
+                    active={Number(pathname[pathname.length - 1]) === board.id}
                     className="group"
                     href={href}
                     key={board.name}
