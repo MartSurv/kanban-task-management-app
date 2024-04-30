@@ -1,15 +1,38 @@
-type PageProps = { params: { id: "3" }; searchParams: { taskId: "21" } };
+import { ViewTaskModal } from "components/molecules/ViewTaskModal";
+import { Action } from "types";
+import data from "../../../../../data/data.json";
+import { Text, TextSize } from "components/atoms/Text";
+import { Heading, HeadingSize } from "components/atoms/Heading";
+import { Checkbox } from "@radix-ui/react-checkbox";
 
-export default function Page({ searchParams: { taskId } }: PageProps) {
-  if (!taskId) {
-    return null;
+type Params = {
+  id: string;
+};
+
+type SearchParams = {
+  action: Action;
+  taskId: string;
+};
+
+type PageParams = {
+  params: Params;
+  searchParams: SearchParams;
+};
+
+export default function Page({
+  params: { id },
+  searchParams: { action, taskId },
+}: PageParams) {
+  if (action === Action.View) {
+    const task = data.boards
+      .find((board) => board.id === Number(id))
+      ?.columns.find((column) =>
+        column.tasks.find((task) => task.id === Number(taskId)),
+      )
+      ?.tasks.find((task) => task.id === Number(taskId));
+
+    return <ViewTaskModal data={task} visible />;
   }
 
-  return (
-    <div className="absolute h-screen w-screen transform bg-black/50">
-      <article className="absolute left-1/2 top-1/2 w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-8 dark:bg-dark-grey dark:text-white">
-        Im a modal
-      </article>
-    </div>
-  );
+  return null;
 }

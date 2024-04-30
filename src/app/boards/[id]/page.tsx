@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { id: string } }) {
             {column.tasks.map((task) => {
               return (
                 <Card
-                  href={`/boards/${params.id}?taskId=${task.id}`}
+                  href={`/boards/${params.id}?action=view&taskId=${task.id}`}
                   key={task.id}
                   title={task.title}
                   subtasks={task.subtasks}

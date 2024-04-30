@@ -19,7 +19,7 @@ export const Subtitle: React.FC<SubtitleProps> = ({
   return (
     <div className="flex items-center gap-3">
       {color && <span className="h-4 w-4 rounded-full bg-main-purple"></span>}
-      <h2 className={subtitleClassNames}>{text}</h2>
+      <p className={subtitleClassNames}>{text}</p>
     </div>
   );
 };
