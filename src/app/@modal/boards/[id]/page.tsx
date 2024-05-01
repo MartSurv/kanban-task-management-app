@@ -31,7 +31,7 @@ export default async function Page({
       .find((column) => column.tasks.find((task) => task.id === taskId))
       ?.tasks.find((task) => task.id === taskId);
 
-    return <ViewTaskModal data={task} visible />;
+    return <ViewTaskModal columns={data?.columns} task={task} visible />;
   }
 
   return null;
