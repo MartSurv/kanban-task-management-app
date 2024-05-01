@@ -22,14 +22,14 @@ export const Sidebar: React.FC = () => {
   const sidebarClassNames = clsx(
     { "w-72": isExpanded },
     { hidden: !isExpanded },
-    "flex flex-col gap-16 border-r bg-white py-8 pr-6 dark:border-lines-dark dark:bg-dark-grey",
+    "peer/sidebar fixed flex flex min-h-screen flex-col gap-16 border-r bg-white py-8 pr-6 dark:border-lines-dark dark:bg-dark-grey",
   );
 
   return (
     <>
       <aside className={sidebarClassNames}>
         <Logo />
-        <div className="flex h-full w-full flex-col justify-between">
+        <div className="flex h-full w-full grow flex-col justify-between">
           <div className="flex flex-col gap-3">
             <Subtitle className="ml-8" text={`all boards (${boardsCount})`} />
             <nav className="*:pl-8">
@@ -72,7 +72,7 @@ export const Sidebar: React.FC = () => {
       </aside>
       {!isExpanded && (
         <button
-          className="absolute bottom-8 rounded-br-full rounded-tr-full bg-main-purple p-4 transition-colors hover:bg-main-purple-hover"
+          className="fixed bottom-8 rounded-br-full rounded-tr-full bg-main-purple p-4 transition-colors hover:bg-main-purple-hover"
           onClick={() => setIsExpanded(true)}
         >
           <IconShowSidebar />

@@ -27,11 +27,14 @@ export const ViewTaskModal: React.FC<ViewTaskModalProps> = ({
           {data?.subtasks.map((subtask) => {
             return (
               <div
-                className="flex items-center gap-4 rounded bg-main-purple/25 p-4"
+                className="flex gap-4 rounded bg-main-purple/25 p-4"
                 key={subtask.title}
               >
-                <Checkbox id={subtask.title} />
-                <label className="text-xs font-bold" htmlFor={subtask.title}>
+                <Checkbox className="peer" id={subtask.title} />
+                <label
+                  className="text-xs font-bold peer-data-[state=checked]:text-white/50 peer-data-[state=checked]:line-through"
+                  htmlFor={subtask.title}
+                >
                   {subtask.title}
                 </label>
               </div>
