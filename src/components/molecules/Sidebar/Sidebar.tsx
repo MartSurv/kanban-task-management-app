@@ -6,24 +6,32 @@ import IconLightTheme from "assets/images/icon-light-theme.svg";
 import IconDarkTheme from "assets/images/icon-dark-theme.svg";
 import IconHideSidebar from "assets/images/icon-hide-sidebar.svg";
 import IconShowSidebar from "assets/images/icon-show-sidebar.svg";
-import data from "../../../../data/data.json";
 import { Switch } from "components/atoms/Switch";
 import { Logo } from "components/atoms/Logo";
 import { Subtitle } from "components/atoms/Subtitle";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { Board } from "types/data";
 
 export const Sidebar: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [boards, setBoards] = useState<Board[]>([]);
   const pathname = usePathname();
 
-  const boardsCount = data.boards.length.toString();
   const sidebarClassNames = clsx(
     { "w-72": isExpanded },
     { hidden: !isExpanded },
     "peer/sidebar fixed flex flex min-h-screen flex-col gap-16 border-r bg-white py-8 pr-6 dark:border-lines-dark dark:bg-dark-grey",
   );
+
+  useEffect(() => {
+    fetch("/api/boards").then((res) =>
+      res.json().then((data) => {
+        setBoards(data as Board[]);
+      }),
+    );
+  }, []);
 
   return (
     <>
@@ -31,13 +39,13 @@ export const Sidebar: React.FC = () => {
         <Logo />
         <div className="flex h-full w-full grow flex-col justify-between">
           <div className="flex flex-col gap-3">
-            <Subtitle className="ml-8" text={`all boards (${boardsCount})`} />
+            <Subtitle className="ml-8" text={`all boards (${boards.length})`} />
             <nav className="*:pl-8">
-              {data.boards.map((board) => {
+              {boards.map((board) => {
                 const href = `/boards/${board.id}`;
                 return (
                   <NavLink
-                    active={Number(pathname[pathname.length - 1]) === board.id}
+                    active={pathname[pathname.length - 1] === board.id}
                     className="group"
                     href={href}
                     key={board.name}

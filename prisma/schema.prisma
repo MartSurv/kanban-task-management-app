@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type BoardsColumns {
+  id    String               @db.ObjectId
+  name  String
+  tasks BoardsColumnsTasks[]
+}
+
+type BoardsColumnsTasks {
+  description String
+  id          String                       @db.ObjectId
+  status      String
+  subtasks    BoardsColumnsTasksSubtasks[]
+  title       String
+}
+
+type BoardsColumnsTasksSubtasks {
+  id          String? @db.ObjectId
+  isCompleted Boolean
+  title       String
+}
+
+model boards {
+  id      String          @id @default(auto()) @map("_id") @db.ObjectId
+  columns BoardsColumns[]
+  name    String
+}

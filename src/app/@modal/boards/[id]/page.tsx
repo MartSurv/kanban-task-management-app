@@ -1,9 +1,6 @@
 import { ViewTaskModal } from "components/molecules/ViewTaskModal";
+import prisma from "data/db";
 import { Action } from "types";
-import data from "../../../../../data/data.json";
-import { Text, TextSize } from "components/atoms/Text";
-import { Heading, HeadingSize } from "components/atoms/Heading";
-import { Checkbox } from "@radix-ui/react-checkbox";
 
 type Params = {
   id: string;
@@ -19,17 +16,20 @@ type PageParams = {
   searchParams: SearchParams;
 };
 
-export default function Page({
+const getData = async (id: string) => {
+  return await prisma.boards.findUnique({ where: { id } });
+};
+
+export default async function Page({
   params: { id },
   searchParams: { action, taskId },
 }: PageParams) {
+  const data = await getData(id);
+
   if (action === Action.View) {
-    const task = data.boards
-      .find((board) => board.id === Number(id))
-      ?.columns.find((column) =>
-        column.tasks.find((task) => task.id === Number(taskId)),
-      )
-      ?.tasks.find((task) => task.id === Number(taskId));
+    const task = data?.columns
+      .find((column) => column.tasks.find((task) => task.id === taskId))
+      ?.tasks.find((task) => task.id === taskId);
 
     return <ViewTaskModal data={task} visible />;
   }

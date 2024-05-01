@@ -1,13 +1,13 @@
 import { Card } from "components/atoms/Card";
-import data from "../../../../data/data.json";
 import { BoardColumn } from "components/molecules/BoardColumn";
+import { getBoards } from "utils/getBoards";
 
-export default function Page({ params }: { params: { id: string } }) {
-  const board = data.boards.find((board) => board.id === Number(params.id));
+export default async function Page({ params }: { params: { id: string } }) {
+  const data = await getBoards(params.id);
 
   return (
     <div className="flex gap-6">
-      {board?.columns.map((column) => {
+      {data?.columns.map((column) => {
         return (
           <BoardColumn
             title={`${column.name} (${column.name.length})`}
